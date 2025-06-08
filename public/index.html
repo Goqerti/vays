@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musa - Turizm Mühasibat Sistemi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1 id="main-header-title">Musa</h1>
+        <nav>
+            <button id="navSatishlarBtn" class="active">Satışlar</button>
+            <button id="navRezervasiyalarBtn">Rezervasiyalar</button>
+            <button id="navBildirishlerBtn">
+                Bildirişlər
+                <span id="notification-count" class="badge" style="display:none;"></span>
+            </button>
+            <button id="navChatBtn">Chat</button>
+            <button id="navAxtarishBtn">Axtarış</button>
+            <button id="navHesabatBtn">Hesabat</button>
+            <button id="navBorclarBtn">Borclar</button>
+            <a href="/logout" class="logout-btn">Çıxış</a>
+        </nav>
+    </header>
+
+    <main>
+        <div id="chatView" style="display: none;">
+            <h2>Qrup Çatı</h2>
+            <div class="chat-page-container">
+                <div class="chat-messages" id="chat-messages">
+                    </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Mesajınızı yazın...">
+                    <button id="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="bildirishlerView" style="display: none;">
+            <h2>Təcili Bildirişlər</h2>
+            <p>Bu siyahıda otelə giriş tarixinə 3 gün və ya daha az qalmış, lakin otel və ya transport məlumatları tam doldurulmamış sifarişlər göstərilir.</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Satış №</th>
+                            <th>Turist</th>
+                            <th>Giriş Tarixi</th>
+                            <th>Problem</th>
+                            <th>Əməliyyat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="notificationsTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="searchView" style="display: none;">
+            <div class="search-container">
+                <h2>Sifariş Axtarışı (Rez. Nömrəsinə Görə)</h2>
+                <div class="search-form">
+                    <input type="text" id="searchInputRezNomresi" placeholder="Rezervasiya nömrəsini daxil edin...">
+                    <button id="searchButton">Axtar</button>
+                </div>
+                <div id="searchResultDisplay" class="search-result-display">
+                    <p>İnvoys yaratmaq üçün rezervasiya nömrəsini daxil edib "Axtar" düyməsini basın.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="satishlarView"> 
+            <h2>Satışlar Cədvəli</h2>
+            
+            <div class="filters-container">
+                <div>
+                    <label for="filterYear">İl:</label>
+                    <input type="number" id="filterYear" placeholder="YYYY" min="2000" max="2099">
+                </div>
+                <div>
+                    <label for="filterMonth">Ay:</label>
+                    <input type="month" id="filterMonth">
+                </div>
+                <div>
+                    <label for="filterDate">Tarix:</label>
+                    <input type="date" id="filterDate">
+                </div>
+                <div>
+                    <label for="sortOrder">Sıralama (Yaradılma Tarixinə Görə):</label>
+                    <select id="sortOrder">
+                        <option value="desc" selected>Yenidən Köhnəyə</option>
+                        <option value="asc">Köhnədən Yeniyə</option>
+                    </select>
+                </div>
+                <button id="applyFiltersBtn" class="filter-apply-btn">Filterlə</button>
+                <button id="resetFiltersBtn" class="filter-reset-btn">Filteri Sıfırla</button>
+            </div>
+
+            <div class="actions">
+                <button id="showAddOrderFormBtn" class="add-order-btn">Yeni sifariş əlavə et</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Satış №</th>
+                            <th>Yaradılma Tarixi</th> 
+                            <th>Rez. №</th> <th>Turist</th>
+                            <th>Böyük</th> <th>Uşaq</th>  <th>Xarici şirkət</th>
+                            <th>Otel Adı (İlk)</th>
+                            <th>Alış Qiyməti</th>
+                            <th>Satış Qiyməti</th>
+                            <th>Gəlir</th>
+                            <th>Status</th>
+                            <th>Əməliyyatlar</th>
+                            <th>Qeyd</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        </tbody>
+                </table>
+            </div>
+            <div class="summary">
+                <div id="totalOrdersContainer">
+                    <span>Cəmi Sifarişlər: </span>
+                    <span id="totalOrders">0</span>
+                </div>
+                <div id="totalsByCurrencyContainer">
+                    </div>
+            </div>
+        </div>
+
+        <div id="rezervasiyalarView" style="display: none;">
+            <h2>Otel Rezervasiyaları</h2>
+            <div class="filters-container reservation-filters">
+                <div>
+                    <label for="reservationFilterHotelName">Otel Adı:</label>
+                    <input type="text" id="reservationFilterHotelName" placeholder="Otel adını daxil edin">
+                </div>
+                <div>
+                    <label for="reservationFilterMonth">Ay (Giriş Tarixinə Görə):</label>
+                    <input type="month" id="reservationFilterMonth">
+                </div>
+                <div>
+                    <label for="reservationFilterDate">Tarix (Giriş Tarixinə Görə):</label>
+                    <input type="date" id="reservationFilterDate">
+                </div>
+                <div>
+                    <label for="reservationSortOrder">Sıralama (Giriş Tarixinə Görə):</label>
+                    <select id="reservationSortOrder">
+                        <option value="desc" selected>Yenidən Köhnəyə</option>
+                        <option value="asc">Köhnədən Yeniyə</option>
+                    </select>
+                </div>
+                <button id="applyReservationFiltersBtn" class="filter-apply-btn">Filterlə</button>
+                <button id="resetReservationFiltersBtn" class="filter-reset-btn">Filteri Sıfırla</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Satış №</th>
+                            <th>Turist</th>
+                            <th>Otel Adı</th>
+                            <th>Giriş Tarixi</th>
+                            <th>Çıxış Tarixi</th>
+                            <th>Böyük Sayı</th>
+                            <th>Uşaq Sayı</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservationsTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="hesabatView" style="display: none;">
+            <h2>Hesabatlar</h2>
+            <div class="filters-container report-filters"> 
+                <div>
+                    <label for="reportFilterYear">İl:</label>
+                    <input type="number" id="reportFilterYear" placeholder="YYYY" min="2000" max="2099">
+                </div>
+                <div>
+                    <label for="reportFilterMonth">Ay:</label>
+                    <input type="month" id="reportFilterMonth">
+                </div>
+                <div>
+                    <label for="reportFilterHotelName">Otel Adı:</label>
+                    <input type="text" id="reportFilterHotelName" placeholder="Otel adını daxil edin">
+                </div>
+                <button id="generateReportBtn" class="filter-apply-btn">Hesabatı Göstər</button>
+            </div>
+
+            <div id="reportResultDisplay" class="report-result-display">
+                <p>Hesabatı yaratmaq üçün yuxarıdakı filterləri seçin və "Hesabatı Göstər" düyməsini basın.</p>
+            </div>
+        </div>
+
+        <div id="borclarView" style="display: none;">
+            <h2>Borclar Cədvəli</h2>
+            <div class="filters-container">
+                <div>
+                    <label for="borclarSearchInput">Şirkət Adına Görə Axtar:</label>
+                    <input type="text" id="borclarSearchInput" placeholder="Şirkət adını daxil edin...">
+                </div>
+                <button id="borclarSearchBtn" class="filter-apply-btn">Axtar</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Şirkət Adı</th>
+                            <th>Satış №</th>
+                            <th>Turist</th>
+                            <th>Borc Məbləği</th>
+                            <th>Ödəmə Tarixi</th>
+                            <th>Sifarişə Keçid</th>
+                        </tr>
+                    </thead>
+                    <tbody id="borclarTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="addOrderModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" title="Bağla">&times;</span>
+                <h3>Yeni Sifariş Əlavə Et</h3>
+                <form id="addOrderForm">
+                    <h4>Əsas Məlumatlar</h4>
+                    <label for="turist">Turist:</label>
+                    <input type="text" id="turist" name="turist" required>
+                    <label for="xariciSirket">Xarici şirkət:</label>
+                    <input type="text" id="xariciSirket" name="xariciSirket">
+                    <div class="form-group-inline">
+                        <div>
+                            <label for="adultGuests">Böyük Qonaq Sayı:</label>
+                            <input type="number" id="adultGuests" name="adultGuests" min="0" value="1">
+                        </div>
+                        <div>
+                            <label for="childGuests">Uşaq Qonaq Sayı:</label>
+                            <input type="number" id="childGuests" name="childGuests" min="0" value="0">
+                        </div>
+                    </div>
+                    <label for="rezNomresi">Rez. nömrəsi/əməli. nömrəsi:</label>
+                    <input type="text" id="rezNomresi" name="rezNomresi" placeholder="Rezervasiya nömrəsini daxil edin"> 
+
+                    <hr>
+                    <div class="dynamic-section-header">
+                        <h4>Otel Məlumatları</h4>
+                        <button type="button" id="addHotelBtn" class="action-btn-small">+</button>
+                    </div>
+                    <div id="hotelEntriesContainer">
+                        </div>
+
+                    <hr>
+                    <h4>Transport Məlumatları</h4>
+                    <label for="transport_surucuMelumatlari">Tur/Sürücü Məlumatları:</label>
+                    <input type="text" id="transport_surucuMelumatlari" name="transport_surucuMelumatlari">
+                    <label for="transport_odenisKartMelumatlari">Ödəniş Kart Məlumatları (DİQQƏT: Həssas məlumat!):</label>
+                    <input type="text" id="transport_odenisKartMelumatlari" name="transport_odenisKartMelumatlari" placeholder="Yalnız referans və ya son 4 rəqəm">
+                    <label for="transport_turTevsiri">Tur Təsviri:</label>
+                    <textarea id="transport_turTevsiri" name="transport_turTevsiri" rows="3"></textarea>
+                    <label for="transport_elaveXidmetler">Əlavə Xidmətlər (Transport):</label>
+                    <input type="text" id="transport_elaveXidmetler" name="transport_elaveXidmetler">
+
+                    <hr>
+                    <h4>Maliyyə Məlumatları (Alış/Satış)</h4>
+                    <div class="form-group-inline">
+                        <div>
+                            <label for="alishAmount">Alış Qiyməti (Avtomatik):</label>
+                            <input type="number" step="0.01" id="alishAmount" name="alishAmount" value="0" readonly>
+                        </div>
+                        <div>
+                            <label for="alishCurrency">Valyuta (Alış):</label>
+                            <select id="alishCurrency" name="alishCurrency">
+                                <option value="AZN" selected>AZN</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-inline">
+                        <div>
+                            <label for="satishAmount">Satış Qiyməti:</label>
+                            <input type="number" step="0.01" id="satishAmount" name="satishAmount" value="0">
+                        </div>
+                        <div>
+                            <label for="satishCurrency">Valyuta (Satış):</label>
+                            <select id="satishCurrency" name="satishCurrency">
+                                <option value="AZN" selected>AZN</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <h4>Ödəniş Məlumatları (Xarici Şirkət)</h4>
+                    <div class="form-group-inline">
+                        <div>
+                            <label for="paymentStatus">Ödəniş Statusu:</label>
+                            <select id="paymentStatus" name="paymentStatus">
+                                <option value="Ödənilməyib" selected>Ödənilməyib</option>
+                                <option value="Ödənilib">Ödənilib</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="paymentDueDate">Gözlənilən Ödəniş Tarixi:</label>
+                            <input type="date" id="paymentDueDate" name="paymentDueDate">
+                        </div>
+                    </div>
+                   
+                    <hr>
+                    <h4>Xərclərin Detalları (Alış Qiymətini Avtomatik Hesablayır)</h4>
+                     <div class="form-group-inline">
+                        <div>
+                            <label for="detailedCost_paket">Paket Xərci:</label>
+                            <input type="number" step="0.01" id="detailedCost_paket" name="detailedCost_paket" value="0" class="cost-input">
+                        </div>
+                        <div>
+                            <label for="detailedCost_beledci">Bələdçi Xərci:</label>
+                            <input type="number" step="0.01" id="detailedCost_beledci" name="detailedCost_beledci" value="0" class="cost-input">
+                        </div>
+                    </div>
+                     <div class="form-group-inline">
+                        <div>
+                            <label for="detailedCost_muzey">Muzey/Atraksiyon Xərci:</label>
+                            <input type="number" step="0.01" id="detailedCost_muzey" name="detailedCost_muzey" value="0" class="cost-input">
+                        </div>
+                        <div>
+                            <label for="detailedCost_viza">Viza Xərci:</label>
+                            <input type="number" step="0.01" id="detailedCost_viza" name="detailedCost_viza" value="0" class="cost-input">
+                        </div>
+                    </div>
+                     <div class="form-group-inline">
+                         <div>
+                            <label for="detailedCost_diger">Digər Xərclər:</label>
+                            <input type="number" step="0.01" id="detailedCost_diger" name="detailedCost_diger" value="0" class="cost-input">
+                        </div>
+                        <div></div>
+                    </div>
+                    <hr>
+
+                    <h4>Digər</h4>
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="Davam edir" selected>Davam edir</option>
+                        <option value="Bitdi">Bitdi</option>
+                        <option value="Ləğv edildi">Ləğv edildi</option>
+                    </select>
+
+                    <label for="qeyd">Qeyd (Sifariş üçün ümumi):</label>
+                    <input type="text" id="qeyd" name="qeyd">
+
+                    <button type="submit">Sifarişi Əlavə Et</button>
+                </form>
+            </div>
+        </div>
+        
+        <div id="noteModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeNoteModalBtn" title="Bağla">&times;</span>
+                <h3 id="noteModalTitle">Sifariş üçün Qeyd</h3>
+                <form id="noteForm">
+                    <input type="hidden" id="noteSatisNo" name="satisNo">
+                    <label for="noteText">Qeyd Mətni:</label>
+                    <textarea id="noteText" name="qeyd" rows="6" style="width: calc(100% - 22px); font-size: 0.9em; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-top: 6px;"></textarea>
+                    <button type="submit">Qeydi Yadda Saxla</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

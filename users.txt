@@ -1,0 +1,6 @@
+said:owner123:owner:Səid:sirvanback@gmail.com
+finance_user:finance123:finance:Finance:finance.email@example.com
+ilkin:ilkin123:sales_manager:İlkin:headofsalesazerways@gmail.com
+sales2:sales456:sales_manager:Sales 2:sales2.email@example.com
+leyaqet:coord123:coordinator:Ləyaqət:leyaqet.email@example.com
+ibrahim:ibrahim123:reservation:İbrahim:ibraramazanov81@gmail.com

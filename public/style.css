@@ -1,0 +1,633 @@
+/* public/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Səhifənin ümumi arxa fon rəngi */
+    color: #333; /* Əsas mətn rəngi */
+    font-size: 14px; /* Əsas şrift ölçüsü */
+}
+
+header {
+    background-color: #fff; /* Başlıq arxa fon rəngi */
+    padding: 10px 20px; /* Başlıq daxili boşluqları */
+    display: flex; /* Elementləri yan-yana düzmək üçün */
+    justify-content: space-between; /* Elementləri başlığın kənarlarına  yaymaq üçün */
+    align-items: center; /* Elementləri şaquli olaraq ortalamaq üçün */
+    border-bottom: 1px solid #ddd; /* Başlığın altına xətt */
+    position: sticky; /* Header-i yuxarıda sabit saxla */
+    top: 0; /* Yuxarıdan yapışdırma */
+    z-index: 100; /* Digər elementlərin üzərində qalması üçün */
+}
+
+header h1 {
+    color: #2c3e50; /* Başlıq mətni rəngi */
+    margin: 0; /* Başlıq kənar boşluqlarını sıfırlamaq */
+    font-size: 1.8em; /* Başlıq şrift ölçüsü */
+}
+
+header nav button {
+    margin-left: 8px; /* Düymələr arası sol boşluq */
+    padding: 7px 12px; /* Düymə daxili boşluqları */
+    border: 1px solid #ccc; /* Düymə sərhədi */
+    background-color: #f8f9fa; /* Düymə arxa fon rəngi */
+    cursor: pointer; /* Kursoru əl işarəsinə çevirmək */
+    border-radius: 4px; /* Düymə kənarlarını yumşaltmaq */
+    font-size: 0.9em; /* Düymə şrift ölçüsü */
+    transition: background-color 0.2s, border-color 0.2s; /* Keçid effekti */
+    position: relative; /* Badge üçün mövqe təyini */
+}
+
+header nav button.active { /* Aktiv naviqasiya düyməsi üçün stil */
+    background-color: #007bff; /* Aktiv düymə arxa fon rəngi (mavi) */
+    color: white; /* Aktiv düymə mətn rəngi (ağ) */
+    border-color: #007bff; /* Aktiv düymə sərhəd rəngi */
+}
+
+header nav button:hover:not(.active) { /* Aktiv olmayan düymələr üçün hover effekti */
+    background-color: #e9ecef; /* Hover-da arxa fon rəngi */
+    border-color: #bbb; /* Hover-da sərhəd rəngi */
+}
+
+header nav button .badge {
+    background-color: #dc3545; /* qırmızı fon */
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7em;
+    font-weight: bold;
+    position: absolute; /* Ana elementə görə mövqe */
+    top: -5px; 
+    right: -5px;
+}
+
+
+.logout-btn {
+    text-decoration: none; /* Alt xətti ləğv etmək */
+    margin-left: 15px; /* Sol boşluq */
+    padding: 7px 12px; /* Daxili boşluqlar */
+    border: 1px solid #dc3545; /* Çıxış düyməsi sərhədi (qırmızı) */
+    background-color: #f8d7da; /* Çıxış düyməsi arxa fonu (açıq qırmızı) */
+    color: #721c24; /* Çıxış düyməsi mətn rəngi (tünd qırmızı) */
+    border-radius: 4px; /* Kənarları yumşaltmaq */
+    font-size: 0.9em; /* Şrift ölçüsü */
+    transition: background-color 0.2s, color 0.2s; /* Keçid effekti */
+}
+
+.logout-btn:hover {
+    background-color: #dc3545; /* Hover-da arxa fon (qırmızı) */
+    color: white; /* Hover-da mətn rəngi (ağ) */
+}
+
+main {
+    padding: 15px; /* Əsas məzmun üçün daxili boşluqlar */
+}
+
+main h2 { /* Bütün bölmə başlıqları üçün ümumi stil */
+    font-size: 1.6em;
+    color: #334e68;
+    text-align: left;
+    margin-top: 0; 
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid #007bff; /* Başlıqların altına mavi xətt */
+    padding-bottom: 10px;
+}
+
+/* Axtarış və Hesabat bölməsi başlıqları üçün xüsusi alt xətt rəngi */
+#searchView .search-container h2,
+#hesabatView h2,
+#chatView h2 {
+    border-bottom-color: #5cb85c;
+}
+
+#bildirishlerView p {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 4px;
+    color: #856404;
+}
+
+
+.actions {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.add-order-btn {
+    background-color: #347AB6;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-order-btn:hover {
+    background-color: #285e8e;
+}
+
+.table-container { 
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom:10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+table { 
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td { 
+    border: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.88em; 
+    white-space: nowrap;
+}
+
+th {
+    background-color: #f0f2f5;
+    font-weight: 600;
+    color: #333;
+    position: sticky;
+    top: 0; 
+    z-index: 10; 
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #eef4f8; 
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6); 
+}
+
+.modal-content {
+    background-color: #fefefe; 
+    margin: 5% auto; 
+    padding: 30px; 
+    border: 1px solid #bbb;
+    width: 75%; 
+    min-width: 320px; 
+    max-width: 850px; 
+    border-radius: 8px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+    position: relative; 
+}
+
+.modal-content h3 { 
+    margin-top: 0;
+    color: #333;
+    font-size: 1.7em; 
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+}
+.modal-content h4 { 
+    font-size: 1.2em; 
+    color: #007bff;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 6px;
+}
+.modal-content hr { 
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0; 
+    margin: 25px 0;
+}
+
+.close-button { 
+    color: #aaa;
+    float: right; 
+    font-size: 32px; 
+    font-weight: bold;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #555; 
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content form label {
+    display: block; 
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 0.95em; 
+    color: #444;
+}
+
+.modal-content form input,
+.modal-content form select,
+.modal-content form textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    font-size: 0.95em; 
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.modal-content form input:focus,
+.modal-content form select:focus,
+.modal-content form textarea:focus { 
+    border-color: #007bff; 
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); 
+    outline: none; 
+}
+
+.modal-content form textarea {
+    min-height: 70px; 
+    resize: vertical; 
+}
+
+.form-group-inline { 
+    display: flex;
+    gap: 20px; 
+    align-items: flex-end; 
+    margin-bottom: 12px;
+}
+
+.form-group-inline > div { 
+    flex: 1; 
+}
+
+.modal-content form button[type="submit"] { 
+    background-color: #28a745; 
+    color: white;
+    padding: 12px 25px; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1em; 
+    margin-top: 30px;
+    display: block; 
+    width: auto; 
+    min-width: 180px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    transition: background-color 0.2s;
+}
+
+.modal-content form button[type="submit"]:hover {
+    background-color: #218838; 
+}
+
+td .action-btn {
+    padding: 5px 8px; 
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 1.15em; 
+    color: #555;
+    line-height: 1;
+    vertical-align: middle;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+td .action-btn:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+}
+td .action-btn.edit:hover { background-color: #ffc107; color: #333; border-color: #dda600;} 
+td .action-btn.delete:hover { background-color: #dc3545; color: white; border-color: #b02a37;} 
+td .action-btn.note:hover { background-color: #17a2b8; color: white; border-color: #117a8b;} 
+
+
+.status-davam-edir { color: #28a745; font-weight: bold; }
+.status-ləğv-edildi, .status-legv-edildi { color: #dc3545; text-decoration: line-through; }
+.status-bitdi { color: #6c757d; }
+
+.summary {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.summary #totalOrdersContainer {
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.summary #totalOrdersContainer span#totalOrders {
+    color: #0056b3;
+}
+
+.summary #totalsByCurrencyContainer .currency-total {
+    margin-bottom: 10px;
+    padding: 10px; 
+    border: 1px solid #d6d8db;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+}
+.summary #totalsByCurrencyContainer .currency-total span {
+    display: block;
+    margin-bottom: 5px; 
+    font-size: 0.98em; 
+}
+
+.summary #totalsByCurrencyContainer .currency-total span strong {
+    color: #0056b3;
+    float: right;
+    margin-left: 10px;
+}
+.summary #totalsByCurrencyContainer .currency-total span::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.text-danger { 
+    color: #dc3545 !important; 
+}
+.text-success { 
+    color: #28a745 !important; 
+}
+
+.search-container {
+    padding: 25px; 
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07); 
+}
+
+.search-form {
+    display: flex;
+    gap: 15px; 
+    margin-bottom: 25px; 
+}
+
+.search-form input[type="text"] {
+    flex-grow: 1; 
+    padding: 12px; 
+    border: 1px solid #ced4da; 
+    border-radius: 4px;
+    font-size: 1.05em; 
+}
+.search-form input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    outline: none;
+}
+
+
+.search-form button { 
+    padding: 12px 25px; 
+    background-color: #5cb85c; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.05em; 
+    transition: background-color 0.2s;
+}
+.search-form button:hover {
+    background-color: #4cae4c; 
+}
+
+.search-result-display { 
+    margin-bottom: 20px; 
+    padding: 20px; 
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    min-height: 60px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.filters-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px; 
+    align-items: flex-end; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.filters-container > div { 
+    display: flex;
+    flex-direction: column; 
+    min-width: 130px; 
+}
+
+.filters-container label {
+    margin-bottom: 6px; 
+    font-weight: 500;
+    font-size: 0.88em; 
+    color: #495057; 
+}
+
+.filters-container input, 
+.filters-container select {
+    padding: 9px 10px; 
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.92em; 
+    background-color: #fff; 
+}
+
+.filters-container button {
+    padding: 9px 18px; 
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 0.92em; 
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    align-self: flex-end; 
+    margin-top: 5px;
+}
+.filters-container button.filter-apply-btn,
+.filters-container button#generateReportBtn { 
+    background-color: #28a745; 
+    color: white;
+    border-color: #28a745;
+}
+.filters-container button:hover {
+    opacity: 0.8;
+}
+
+.dynamic-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-btn-small {
+    padding: 2px 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+.action-btn-small.remove-hotel-btn {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+    padding: 4px 9px;
+    font-size: 1em;
+}
+
+.hotel-entry {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.hotel-entry .form-group-inline {
+    margin-bottom: 10px;
+}
+
+hr.dashed {
+    border: none;
+    border-top: 1px dashed #ccc;
+    margin: 15px 0;
+}
+
+/* --- Yeni WhatsApp Bənzəri Chat Stilleri --- */
+#chatView {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+}
+
+.chat-page-container {
+    background-color: #e5ddd5; 
+    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+#chatView .chat-messages {
+    flex-grow: 1;
+    padding: 20px 10%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+
+#chatView .chat-message {
+    padding: 8px 12px;
+    border-radius: 7.5px;
+    max-width: 65%;
+    word-wrap: break-word;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+#chatView .chat-message .sender {
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+
+#chatView .chat-message .message-text {
+    font-size: 0.95em;
+    margin-right: 50px;
+}
+
+#chatView .chat-message .timestamp {
+    font-size: 0.7em;
+    color: #888;
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}
+
+#chatView .chat-message.other {
+    background-color: #ffffff;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+#chatView .chat-message.other .sender {
+    color: #007bff;
+}
+
+#chatView .chat-message.own {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+#chatView .chat-message.own .sender {
+    display: none;
+}
+
+
+#chatView .chat-input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+}
+
+#chatView #chat-input {
+    flex-grow: 1;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    padding: 10px 18px;
+    font-size: 1em;
+    outline: none;
+}
+
+#chatView #chat-send-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+#chatView #chat-send-btn:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,22 @@
+{
+  "sales_manager": {
+    "canEditOrder": true,
+    "canEditFinancials": true,
+    "canDeleteOrder": true
+  },
+  "coordinator": {
+    "canEditOrder": true,
+    "canEditFinancials": true,
+    "canDeleteOrder": true
+  },
+  "reservation": {
+    "canEditOrder": true,
+    "canEditFinancials": true,
+    "canDeleteOrder": true
+  },
+  "finance": {
+    "canEditOrder": true,
+    "canEditFinancials": true,
+    "canDeleteOrder": true
+  }
+}
